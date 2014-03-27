@@ -19,24 +19,24 @@
 
   "grunt": {
     "styles": [
-        {
-            "path": "styles",
-            "files": { "build.css": "main.less" }
-        },
-        {
-            "path": "more_styles",
-            "files": { "export.css": "module.less" }
-        }
+      {
+        "path": "styles",
+        "files": { "build.css": "main.less" }
+      },
+      {
+        "path": "more_styles",
+        "files": { "export.css": "module.less" }
+      }
     ],
     "scripts": [
-        {
-            "path": "scripts",
-            "buildFile": "build.js"
-        },
-        {
-            "path": "more_scripts",
-            "buildFile": "export.js"
-        }
+      {
+        "path": "scripts",
+        "buildFile": "build.js"
+      },
+      {
+        "path": "more_scripts",
+        "buildFile": "export.js"
+      }
     ]
   }
 
