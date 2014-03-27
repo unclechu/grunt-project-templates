@@ -1,4 +1,6 @@
 #!/bin/bash
+# vim:set fenc=utf-8 ts=4 sw=4 et:
+LANG='en_US.UTF-8'
 
 clr_info='\e[0;36m'
 clr_ok='\e[0;32m'
