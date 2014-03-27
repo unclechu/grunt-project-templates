@@ -93,7 +93,6 @@ module.exports = function (grunt) {
         // watch
         var jsWatch = [
             item.path + '/libs/**/*.js',
-            item.path + '/src/**/*.json',
             item.path + '/src/**/*.js',
         ];
         Array.prototype.push.apply(watch.js, jsWatch);
