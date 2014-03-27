@@ -187,7 +187,31 @@ module.exports = function (grunt) {
         buildPreprocess.push('preprocess:' + key);
     }
     grunt.registerTask('build-preprocess', buildPreprocess);
-    grunt.registerTask('build-js', ['wrap:js', 'build-preprocess', 'build-concat']);
+
+    var buildJS = [
+        'wrap:js',
+        'build-preprocess',
+    ];
+    var buildJSPart2 = [
+        'build-concat',
+    ];
+    if (pkg.grunt.jshint.development) {
+        buildJS.push('jshint');
+    }
+    buildJS = buildJS.concat(buildJSPart2);
+
+    var buildJSProduction = [
+        'wrap:js',
+        'build-preprocess',
+    ];
+    var buildJSProductionPart2 = [
+        'build-concat',
+        'uglify:js',
+    ];
+    if (pkg.grunt.jshint.production) {
+        buildJSProduction.push('jshint');
+    }
+    buildJSProduction = buildJSProduction.concat(buildJSProductionPart2);
 
     // less
     var buildLess = [];
@@ -200,24 +224,22 @@ module.exports = function (grunt) {
             buildLessProduction.push('less:' + key);
         }
     }
+
+    grunt.registerTask('build-js', buildJS);
+    grunt.registerTask('build-js-production', buildJSProduction);
     grunt.registerTask('build-less', buildLess);
     grunt.registerTask('build-less-production', buildLessProduction);
-
-    // other
     grunt.registerTask('build', ['build-js', 'build-less']);
-    grunt.registerTask('production', [
-        'wrap:js',
-        'build-preprocess',
-        'jshint',
-        'build-concat',
-        'uglify:js',
-        'build-less-production'
-    ]);
-    grunt.registerTask('default', 'production');
     grunt.registerTask('watcher-js', 'watch:js');
     grunt.registerTask('watcher-less', 'watch:less');
     grunt.registerTask('watcher', 'watch:all');
     grunt.registerTask('clean', 'grunt-clean:build');
     grunt.registerTask('distclean', 'grunt-clean:dist');
+    grunt.registerTask('development', 'build');
+    grunt.registerTask('production', [
+        'build-js-production',
+        'build-less-production',
+    ]);
+    grunt.registerTask('default', 'production');
 
 };

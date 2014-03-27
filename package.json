@@ -37,7 +37,11 @@
         "path": "more_scripts",
         "buildFile": "export.js"
       }
-    ]
+    ],
+    "jshint": {
+      "development": true,
+      "production": true
+    }
   }
 
 }
