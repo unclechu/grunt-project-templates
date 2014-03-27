@@ -2,5 +2,5 @@
 *.log
 node_modules
 grunt
-scripts/build
-styles/build
+*/build
+*/build

@@ -16,11 +16,28 @@
   },
   "repository": "https://github.com/unclechu/grunt-project-templates",
   "author": "Viacheslav Lotsmanov",
-  "directories": {
-    "scripts": "scripts",
-    "styles": "styles"
-  },
-  "lessFiles": {
-    "<%= pkg.directories.styles %>/build/build.css": "<%= pkg.directories.styles %>/src/main.less"
+
+  "grunt": {
+    "styles": [
+        {
+            "path": "styles",
+            "files": { "build.css": "main.less" }
+        },
+        {
+            "path": "more_styles",
+            "files": { "export.css": "module.less" }
+        }
+    ],
+    "scripts": [
+        {
+            "path": "scripts",
+            "buildFile": "build.js"
+        },
+        {
+            "path": "more_scripts",
+            "buildFile": "export.js"
+        }
+    ]
   }
+
 }

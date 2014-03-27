@@ -1,122 +1,159 @@
 module.exports = function (grunt) {
+    
+    var pkg = grunt.file.readJSON('package.json');
+
+    var styles = {};
+
+    var scripts = {
+        concat: {},
+        preprocess: {},
+        uglify_files: {},
+        jshint_files: ['Gruntfile.js'],
+        wrap_files: [],
+    };
+
+    var watch = {
+        js: [],
+        less: [],
+        all: [],
+    };
+
+    var clean = [];
+
+    pkg.grunt.styles.forEach(function (item, i) {
+        // watch
+        var lessWatch = [
+            item.path + '/src/**/*.less',
+            item.path + '/libs/**/*.less',
+        ];
+        Array.prototype.push.apply(watch.less, lessWatch);
+        Array.prototype.push.apply(watch.all, lessWatch);
+
+        // clean
+        clean.push(item.path + '/build');
+
+        // less compile
+        var lessFiles = {};
+        for (var key in item.files) {
+            lessFiles[item.path +'/build/'+ key] = item.path +'/src/'+ item.files[key];
+        }
+        styles['development_'+i] = {
+            options: {
+                paths: [
+                    item.path + '/libs',
+                    item.path + '/src',
+                ],
+            },
+            files: lessFiles,
+        };
+        styles['production_'+i] = {
+            options: {
+                paths: [
+                    item.path + '/libs',
+                    item.path + '/src',
+                ],
+                compress: true,
+            },
+            files: lessFiles,
+        };
+    });
+
+    pkg.grunt.scripts.forEach(function (item, i) {
+        // minification
+        var buildFilePath = item.path +'/build/'+ item.buildFile;
+        scripts.uglify_files[buildFilePath] = buildFilePath;
+
+        // preprocess variables
+        var context;
+        var variablesPath = item.path +'/src/variables.json';
+        try { context = grunt.file.readJSON(variablesPath); } catch (err) { context = {}; }
+        scripts.preprocess['js_'+i] = {
+            options: { context: context },
+            files: [{
+                expand: true,
+                cwd: item.path + '/build/wrap/',
+                src: [ '**/*.js' ],
+                dest: item.path + '/build/processed/',
+            }],
+        };
+
+        // concat
+        scripts.concat['js_'+i] = {
+            options: { separator: '\n;\n' },
+            src: [
+                item.path + '/libs/**/*.js',
+                item.path + '/build/processed/**/*.js'
+            ],
+            dest: buildFilePath,
+        };
+
+        // js hint
+        scripts.jshint_files.push(item.path + '/build/processed/**/*.js');
+
+        // watch
+        var jsWatch = [
+            item.path + '/libs/**/*.js',
+            item.path + '/src/**/*.json',
+            item.path + '/src/**/*.js',
+        ];
+        Array.prototype.push.apply(watch.js, jsWatch);
+        Array.prototype.push.apply(watch.all, jsWatch);
+
+        // clean
+        clean.push(item.path + '/build');
+
+        // wrap
+        scripts.wrap_files.push({
+            expand: true,
+            cwd: item.path + '/src/',
+            src: [ '**/*.js' ],
+            dest: item.path + '/build/wrap/'
+        });
+    });
 
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-        concat: {
-            js: {
-                options: { separator: '\n;\n' },
-                src: [
-                    '<%= pkg.directories.scripts %>/libs/**/*.js',
-                    '<%= pkg.directories.scripts %>/build/processed/**/*.js'
-                ],
-                dest: '<%= pkg.directories.scripts %>/build/build.js',
-            },
-        },
+        configs: pkg.grunt,
+        concat: scripts.concat,
         uglify: {
             js: {
                 options: { preserveComments: 'some' },
-                files: {
-                    '<%= pkg.directories.scripts %>/build/build.js': '<%= pkg.directories.scripts %>/build/build.js',
-                },
+                files: scripts.uglify_files,
             },
         },
-        preprocess: {
-            options: {
-                context: grunt.file.readJSON(
-                    grunt.file.readJSON('package.json').directories.scripts +
-                    '/src/variables.json'
-                ),
-            },
-            js: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: '<%= pkg.directories.scripts %>/build/wrap/',
-                        src: [ '**/*.js' ],
-                        dest: '<%= pkg.directories.scripts %>/build/processed/',
-                    },
-                ],
-            },
-        },
+        preprocess: scripts.preprocess,
         jshint: {
             options: {
                 browser: true,
                 jquery: true,
                 eqeqeq: false,
             },
-            all: [
-                'Gruntfile.js',
-                '<%= pkg.directories.scripts %>/build/processed/**/*.js'
-            ],
+            all: scripts.jshint_files,
         },
         watch: {
             js: {
-                files: [
-                    '<%= pkg.directories.scripts %>/src/**/*.js',
-                    '<%= pkg.directories.scripts %>/src/**/*.json',
-                    '<%= pkg.directories.scripts %>/libs/**/*.js',
-                ],
+                files: watch.js,
                 tasks: [ 'build-js' ],
             },
             less: {
-                files: [
-                    '<%= pkg.directories.styles %>/src/**/*.less',
-                    '<%= pkg.directories.styles %>/libs/**/*.less',
-                ],
+                files: watch.less,
                 tasks: [ 'build-less' ],
             },
             all: {
-                files: [
-                    '<%= pkg.directories.scripts %>/src/**/*.js',
-                    '<%= pkg.directories.scripts %>/src/**/*.json',
-                    '<%= pkg.directories.scripts %>/libs/**/*.js',
-                    '<%= pkg.directories.styles %>/src/**/*.less',
-                    '<%= pkg.directories.styles %>/libs/**/*.less',
-                ],
+                files: watch.all,
                 tasks: [ 'build' ],
             },
         },
-        less: {
-            development: {
-                options: {
-                    paths: [
-                        '<%= pkg.directories.styles %>/libs',
-                        '<%= pkg.directories.styles %>/src',
-                    ],
-                },
-                files: grunt.file.readJSON('package.json').lessFiles,
-            },
-            production: {
-                options: {
-                    paths: [
-                        '<%= pkg.directories.styles %>/libs',
-                        '<%= pkg.directories.styles %>/src',
-                    ],
-                    compress: true,
-                },
-                files: grunt.file.readJSON('package.json').lessFiles,
-            },
-        },
+        less: styles,
         wrap: {
             js: {
                 options: {
                     wrapper: ['\n;(function () {\n', '\n})();\n'],
                 },
-                files: [
-                    {
-                        expand: true,
-                        cwd: '<%= pkg.directories.scripts %>/src/',
-                        src: [ '**/*.js' ],
-                        dest: '<%= pkg.directories.scripts %>/build/wrap/'
-                    }
-                ],
+                files: scripts.wrap_files,
             }
         },
         'grunt-clean': {
-            build: [
-                '<%= pkg.directories.scripts %>/build',
-                '<%= pkg.directories.styles %>/build',
-            ],
+            build: clean,
             dist: [
                 'grunt',
                 'start-http-server',
@@ -136,16 +173,46 @@ module.exports = function (grunt) {
 
     grunt.task.renameTask('clean', 'grunt-clean');
 
-    grunt.registerTask('build-js', ['wrap:js', 'preprocess:js', 'concat:js']);
-    grunt.registerTask('build-less', 'less:development');
+    var key;
+
+    // concat
+    var buildConcat = [];
+    for (key in scripts.concat) {
+        buildConcat.push('concat:' + key);
+    }
+    grunt.registerTask('build-concat', buildConcat);
+
+    // preprocess
+    var buildPreprocess = [];
+    for (key in scripts.preprocess) {
+        buildPreprocess.push('preprocess:' + key);
+    }
+    grunt.registerTask('build-preprocess', buildPreprocess);
+    grunt.registerTask('build-js', ['wrap:js', 'build-preprocess', 'build-concat']);
+
+    // less
+    var buildLess = [];
+    var buildLessProduction = [];
+    for (key in styles) {
+        if (/^development/.test(key)) {
+            buildLess.push('less:' + key);
+        }
+        if (/^production/.test(key)) {
+            buildLessProduction.push('less:' + key);
+        }
+    }
+    grunt.registerTask('build-less', buildLess);
+    grunt.registerTask('build-less-production', buildLessProduction);
+
+    // other
     grunt.registerTask('build', ['build-js', 'build-less']);
     grunt.registerTask('production', [
         'wrap:js',
-        'preprocess:js',
+        'build-preprocess',
         'jshint',
-        'concat:js',
+        'build-concat',
         'uglify:js',
-        'less:production'
+        'build-less-production'
     ]);
     grunt.registerTask('default', 'production');
     grunt.registerTask('watcher-js', 'watch:js');
