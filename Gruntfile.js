@@ -28,8 +28,8 @@ module.exports = function (grunt) {
                 ),
             },
             js: {
-                src: '<%= pkg.directories.scripts %>/build/build.js',
-                dest: '<%= pkg.directories.scripts %>/build/build.js',
+                src: '<%= pkg.directories.scripts %>/<%= pkg.directories.scripts %>/src/**/*.js',
+                options: { inline: true },
             },
         },
         jshint: {
@@ -38,7 +38,10 @@ module.exports = function (grunt) {
                 jquery: true,
                 eqeqeq: false,
             },
-            all: ['Gruntfile.js', '<%= pkg.directories.scripts %>/src/**/*.js'],
+            all: [
+                'Gruntfile.js',
+                '<%= pkg.directories.scripts %>/<%= pkg.directories.scripts %>/src/**/*.js'
+            ],
         },
         watch: {
             js: {
@@ -122,10 +125,17 @@ module.exports = function (grunt) {
 
     grunt.task.renameTask('clean', 'grunt-clean');
 
-    grunt.registerTask('build-js', ['wrap:js', 'concat:js', 'preprocess:js']);
+    grunt.registerTask('build-js', ['wrap:js', 'preprocess:js', 'concat:js']);
     grunt.registerTask('build-less', 'less:development');
     grunt.registerTask('build', ['build-js', 'build-less']);
-    grunt.registerTask('production', ['jshint', 'build-js', 'uglify:js', 'less:production']);
+    grunt.registerTask('production', [
+        'wrap:js',
+        'preprocess:js',
+        'jshint',
+        'concat:js',
+        'uglify:js',
+        'less:production'
+    ]);
     grunt.registerTask('default', 'production');
     grunt.registerTask('watcher-js', 'watch:js');
     grunt.registerTask('watcher-less', 'watch:less');
