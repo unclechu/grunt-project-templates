@@ -49,5 +49,10 @@ if ./grunt; then
     echo -en "${clr_info}Grunt default tasks status${clr_end}: "; ok;
 else err; fi
 
+# custom init actions
+if [ -f ./init-custom.sh ]; then
+    . ./init-custom.sh
+fi
+
 echo -e "${clr_ok}This repository is correctly initialized!${clr_end}"
 exit 0
