@@ -81,3 +81,8 @@ Watch for changes in styles only and rebuilding:
 Watch for changes in scripts only and rebuilding:
 
     $ ./grunt watcher-js
+
+Preprocessing
+-------------
+
+Create file `preprocess_context.json` in scripts sources directory with context to preprocessing. See for details: https://github.com/jsoverson/grunt-preprocess
