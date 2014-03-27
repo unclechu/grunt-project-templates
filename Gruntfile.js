@@ -65,7 +65,7 @@ module.exports = function (grunt) {
 
         // preprocess variables
         var context;
-        var variablesPath = item.path +'/src/variables.json';
+        var variablesPath = item.path +'/src/preprocess_context.json';
         try { context = grunt.file.readJSON(variablesPath); } catch (err) { context = {}; }
         scripts.preprocess['js_'+i] = {
             options: { context: context },
