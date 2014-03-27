@@ -7,7 +7,7 @@ module.exports = function (grunt) {
                 options: { separator: '\n;\n' },
                 src: [
                     '<%= pkg.directories.scripts %>/libs/**/*.js',
-                    '<%= pkg.directories.scripts %>/processed/**/*.js'
+                    '<%= pkg.directories.scripts %>/build/processed/**/*.js'
                 ],
                 dest: '<%= pkg.directories.scripts %>/build/build.js',
             },
@@ -31,9 +31,9 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: '<%= pkg.directories.scripts %>/wrap/',
+                        cwd: '<%= pkg.directories.scripts %>/build/wrap/',
                         src: [ '**/*.js' ],
-                        dest: '<%= pkg.directories.scripts %>/processed/',
+                        dest: '<%= pkg.directories.scripts %>/build/processed/',
                     },
                 ],
             },
@@ -46,7 +46,7 @@ module.exports = function (grunt) {
             },
             all: [
                 'Gruntfile.js',
-                '<%= pkg.directories.scripts %>/processed/**/*.js'
+                '<%= pkg.directories.scripts %>/build/processed/**/*.js'
             ],
         },
         watch: {
@@ -107,15 +107,13 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: '<%= pkg.directories.scripts %>/src/',
                         src: [ '**/*.js' ],
-                        dest: '<%= pkg.directories.scripts %>/wrap/'
+                        dest: '<%= pkg.directories.scripts %>/build/wrap/'
                     }
                 ],
             }
         },
         'grunt-clean': {
             build: [
-                '<%= pkg.directories.scripts %>/wrap',
-                '<%= pkg.directories.scripts %>/processed',
                 '<%= pkg.directories.scripts %>/build',
                 '<%= pkg.directories.styles %>/build',
             ],
