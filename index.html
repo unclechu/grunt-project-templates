@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Static</title>
+    <!--[if IE 8]>
+        <script>document.getElementsByTagName('html')[0].className += ' ie8';</script>
+    <![endif]-->
+    <script>
+        (function () {
+            var revision = 1;
+            document.write('<link rel="stylesheet" type="text/css" href="./styles/build/build.css?v='+ revision +'" />');
+            document.write('<script src="./scripts/build/build.js?v='+ revision +'"></'+'script>');
+        })();
+    </script>
+</head>
+
+<body>
+    <div class="main_block">
+        <h1>Static</h1>
+        <h2>Static</h2>
+        <p>Static <a href="#">static</a></p>
+    </div>
+</body>
+</html>

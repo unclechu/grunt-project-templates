@@ -1,0 +1,7 @@
+*.swp
+*.log
+node_modules
+grunt
+scripts/build
+scripts/scripts
+styles/build

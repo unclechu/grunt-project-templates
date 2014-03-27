@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "grunt": ">=0.4.4",
+    "grunt-cli": ">=0.1.13",
+    "grunt-contrib-concat": ">=0.3.0",
+    "grunt-contrib-uglify": ">=0.4.0",
+    "grunt-preprocess": ">=4.0.0",
+    "grunt-contrib-jshint": ">=0.9.2",
+    "grunt-contrib-watch": ">=0.6.1",
+    "grunt-contrib-less": ">=0.11.0",
+    "grunt-wrap": ">=0.3.0",
+    "grunt-contrib-clean": ">=0.5.0"
+  },
+  "scripts": {
+    "postinstall": "./init-repository.sh"
+  },
+  "repository": "https://github.com/unclechu/grunt-project-templates",
+  "author": "Viacheslav Lotsmanov",
+  "directories": {
+    "scripts": "scripts",
+    "styles": "styles"
+  },
+  "lessFiles": {
+    "<%= pkg.directories.styles %>/build/build.css": "<%= pkg.directories.styles %>/src/main.less"
+  }
+}

@@ -1,0 +1,15 @@
+/**
+ * @author Viacheslav Lotsmanov
+ */
+
+.iconsSprite() {
+    display: inline-block;
+    background: url('../../images/icons_sprite.png') 1px 1px no-repeat;
+    .size(1px, 1px);
+    overflow: hidden;
+}
+
+.icon_name1 { .iconsSprite; .size(20px, 20px); background-position: -1px -1px; }
+.icon_name1_active { .icon_name1; background-position: -22px -1px; }
+.icon_name2 { .iconsSprite; .size(20px, 20px); background-position: -1px -22px; }
+.icon_name2_active { .icon_name2; background-position: -22px -22px; }

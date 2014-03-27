@@ -1,0 +1,53 @@
+/**
+ * @author Viacheslav Lotsmanov
+ */
+
+/* === VARIABLES === */
+
+@import "variables";
+
+/* === MIXINS === */
+
+@import "mixins";
+@import "icons";
+
+/* === RESET === */
+
+@import "reset";
+
+/* === FONTS === */
+
+@import "fonts";
+
+/* === STYLES === */
+
+html, body {
+    min-height: 100%;
+    height: 100%;
+}
+
+:focus { outline: none; }
+
+html {
+    overflow-y: scroll;
+    background: white;
+    color: @contentColor;
+    font: @contentFont;
+
+    h1 { .fontMetrics(@h1FontSize, @h1FontSize*2); }
+    h2 { .fontMetrics(@h2FontSize, @h2FontSize*4); }
+    a { .simpleLink; }
+
+    .main_block {
+        display: block;
+        min-width: @minWidth;
+        max-width: @maxWidth;
+        background: #eaeaea;
+        margin: 0 auto;
+        min-height: 100%;
+    }
+}
+
+html.ie8 {
+    // IE8 bugfixes
+}
