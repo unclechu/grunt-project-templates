@@ -51,7 +51,7 @@ else err; fi
 
 # custom init actions
 if [ -f ./init-custom.sh ]; then
-    . ./init-custom.sh
+    source ./init-custom.sh
 fi
 
 echo -e "${clr_ok}This repository is correctly initialized!${clr_end}"
