@@ -1,10 +1,8 @@
 #!/bin/bash
-# vim:set fenc=utf-8 ts=4 sw=4 et:
 #
 # Author: Viacheslav Lotsmanov
 # License: GPLv3
 #
-LANG='en_US.UTF-8'
 
 SUBM_REPO="https://github.com/unclechu/grunt-project-templates/"
 SUBM_NAME="grunt-template"
@@ -30,7 +28,7 @@ function ok {
 }
 
 function run {
-    echo -e "${clr_info}${@}${clr_end} … "
+    echo -e "${clr_info}${@}${clr_end} ... "
     "$@" && ok || err
     return 0
 }
@@ -75,3 +73,5 @@ echo -e "${clr_ok}Success! Project created by template \"$SUBM_BRANCH\".${clr_en
 
 ask "Remove \"${clr_info}${0}${clr_ask}\" script?" && rm "$0"
 exit 0
+
+# vim:set ts=4 sw=4 et:

@@ -1,10 +1,8 @@
 #!/bin/bash
-# vim:set fenc=utf-8 ts=4 sw=4 et:
 #
 # Author: Viacheslav Lotsmanov
 # License: GPLv3
 #
-LANG='en_US.UTF-8'
 
 clr_info='\e[0;36m'
 clr_ok='\e[0;32m'
@@ -22,7 +20,7 @@ function err {
     [ -z $1 ] && exit 1
 }
 
-echo -ne "${clr_info}Checking for grunt${clr_end} … "
+echo -ne "${clr_info}Checking for grunt${clr_end} ... "
 if [ -e ./node_modules/.bin/grunt ]; then ok; else
     err 1;
     echo -e "${clr_err}No grunt!" \
@@ -44,11 +42,11 @@ if [ -e ./node_modules/.bin/grunt ]; then ok; else
     fi
 fi
 
-echo -ne "${clr_info}Creating symbolic link to grunt cli${clr_end} … "
+echo -ne "${clr_info}Creating symbolic link to grunt cli${clr_end} ... "
 rm ./grunt &>/dev/null
 if ln -s ./node_modules/.bin/grunt ./grunt &>/dev/null; then ok; else err; fi
 
-echo -e "${clr_info}Starting grunt default tasks${clr_end} … "
+echo -e "${clr_info}Starting grunt default tasks${clr_end} ... "
 if ./grunt; then
     echo -en "${clr_info}Grunt default tasks status${clr_end}: "; ok;
 else err; fi
@@ -60,3 +58,5 @@ fi
 
 echo -e "${clr_ok}This repository is correctly initialized!${clr_end}"
 exit 0
+
+# vim:set ts=4 sw=4 et:
