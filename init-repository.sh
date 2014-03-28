@@ -1,5 +1,9 @@
 #!/bin/bash
 # vim:set fenc=utf-8 ts=4 sw=4 et:
+#
+# Author: Viacheslav Lotsmanov
+# License: GPLv3
+#
 LANG='en_US.UTF-8'
 
 clr_info='\e[0;36m'
