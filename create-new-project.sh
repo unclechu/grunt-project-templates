@@ -14,14 +14,14 @@ clr_ask='\e[0;34m'
 clr_err='\e[0;31m'
 clr_end='\e[0m'
 
+function ok {
+    echo -e "${clr_ok}[ OK ]${clr_end}"
+    return 0
+}
+
 function err {
     echo -e "${clr_err}[ ERR ]${clr_end}" 1>&2
     exit 1
-}
-
-function ok {
-    echo -e "${clr_ok}[ OK ]${clr_end}" 1>&2
-    return 0
 }
 
 function run {
