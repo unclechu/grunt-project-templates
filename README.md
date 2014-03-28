@@ -94,3 +94,17 @@ Preprocessing
 -------------
 
 Create file `preprocess_context.json` in scripts sources directory with context to preprocessing. See for details: https://github.com/jsoverson/grunt-preprocess
+
+Scripts load order
+------------------
+
+1. libs
+2. src
+
+If you need to specific load order, just name your scripts with number prefixes:
+
+1. libs/01-jquery.js
+2. libs/02-jquery.mousewheel.plugin.js
+3. src/01-main.js
+4. src/02-header.js
+5. src/03-forms.js
