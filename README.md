@@ -16,32 +16,26 @@ Configutaion
 
 See for key "grunt" in package.json
 
-    "grunt": {
-      "styles": [
-        {
-          "path": "styles",
-          "files": { "build.css": "main.less" }
-        },
-        {
-          "path": "more_styles",
-          "files": { "export.css": "module.less" }
-        }
-      ],
-      "scripts": [
-        {
-          "path": "scripts",
-          "buildFile": "build.js"
-        },
-        {
-          "path": "more_scripts",
-          "buildFile": "export.js"
-        }
-      ],
-      "jshint": {
-        "development": true,
-        "production": true
-      }
+```
+"grunt": {
+  "styles": [
+    {
+      "path": "styles",
+      "files": { "build.css": "main.less" }
     }
+  ],
+  "scripts": [
+    {
+      "path": "scripts",
+      "buildFile": "build.js"
+    }
+  ],
+  "jshint": {
+    "development": true,
+    "production": true
+  }
+}
+```
 
 Commands
 --------
