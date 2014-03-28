@@ -6,10 +6,7 @@
 
 SUBM_REPO="https://github.com/unclechu/grunt-project-templates/"
 SUBM_NAME="grunt-template"
-SUBM_BRANCH="markup"
-
-# template branch from first argument
-[ ! -z "$1" ] && SUBM_BRANCH="$1"
+SUBM_BRANCH="markup" # default value
 
 clr_info='\e[0;36m'
 clr_ok='\e[0;32m'
@@ -46,6 +43,18 @@ function ask {
         exit 1
     fi
 }
+
+if [ -z "$1" ]; then
+    if ask "You not specify branch of template in first argument," \
+           "use the \"${clr_info}markup${clr_ask}\" template branch?"; then
+        run "$0" "$SUBM_BRANCH"
+        exit $?
+    else
+        exit 1
+    fi
+else
+    SUBM_BRANCH="$1"
+fi
 
 run git init
 run git submodule add "$SUBM_REPO" "$SUBM_NAME"
