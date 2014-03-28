@@ -18,7 +18,8 @@ module.exports = function (grunt) {
         all: [],
     };
 
-    var clean = [];
+    var cleanJS = [];
+    var cleanLess = [];
 
     pkg.grunt.styles.forEach(function (item, i) {
         // watch
@@ -30,7 +31,7 @@ module.exports = function (grunt) {
         Array.prototype.push.apply(watch.all, lessWatch);
 
         // clean
-        clean.push(item.path + '/build');
+        cleanLess.push(item.path + '/build');
 
         // less compile
         var lessFiles = {};
@@ -99,7 +100,7 @@ module.exports = function (grunt) {
         Array.prototype.push.apply(watch.all, jsWatch);
 
         // clean
-        clean.push(item.path + '/build');
+        cleanJS.push(item.path + '/build');
 
         // wrap
         scripts.wrap_files.push({
@@ -152,7 +153,8 @@ module.exports = function (grunt) {
             }
         },
         'grunt-clean': {
-            build: clean,
+            js: cleanJS,
+            less: cleanLess,
             dist: [
                 'grunt',
                 'start-http-server',
@@ -189,6 +191,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build-preprocess', buildPreprocess);
 
     var buildJS = [
+        'clean-js',
         'wrap:js',
         'build-preprocess',
     ];
@@ -201,6 +204,7 @@ module.exports = function (grunt) {
     buildJS = buildJS.concat(buildJSPart2);
 
     var buildJSProduction = [
+        'clean-js',
         'wrap:js',
         'build-preprocess',
     ];
@@ -214,8 +218,8 @@ module.exports = function (grunt) {
     buildJSProduction = buildJSProduction.concat(buildJSProductionPart2);
 
     // less
-    var buildLess = [];
-    var buildLessProduction = [];
+    var buildLess = ['clean-less'];
+    var buildLessProduction = ['clean-less'];
     for (key in styles) {
         if (/^development/.test(key)) {
             buildLess.push('less:' + key);
@@ -230,16 +234,18 @@ module.exports = function (grunt) {
     grunt.registerTask('build-less', buildLess);
     grunt.registerTask('build-less-production', buildLessProduction);
     grunt.registerTask('build', ['build-js', 'build-less']);
-    grunt.registerTask('watcher-js', 'watch:js');
-    grunt.registerTask('watcher-less', 'watch:less');
-    grunt.registerTask('watcher', 'watch:all');
-    grunt.registerTask('clean', 'grunt-clean:build');
-    grunt.registerTask('distclean', 'grunt-clean:dist');
-    grunt.registerTask('development', 'build');
+    grunt.registerTask('watcher-js', ['watch:js']);
+    grunt.registerTask('watcher-less', ['watch:less']);
+    grunt.registerTask('watcher', ['watch:all']);
+    grunt.registerTask('clean', ['grunt-clean:js', 'grunt-clean:less']);
+    grunt.registerTask('clean-js', ['grunt-clean:js']);
+    grunt.registerTask('clean-less', ['grunt-clean:less']);
+    grunt.registerTask('distclean', ['grunt-clean:dist']);
+    grunt.registerTask('development', ['build']);
     grunt.registerTask('production', [
         'build-js-production',
         'build-less-production',
     ]);
-    grunt.registerTask('default', 'production');
+    grunt.registerTask('default', ['production']);
 
 };

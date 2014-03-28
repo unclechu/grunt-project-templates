@@ -74,6 +74,14 @@ Cleanup all builded files:
 
     $ ./grunt clean
 
+Cleanup only styles builds:
+
+    $ ./grunt clean-less
+
+Cleanup only scripts builds:
+
+    $ ./grunt clean-js
+
 Cleanup initialization:
 
     $ ./grunt distclean
