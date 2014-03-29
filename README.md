@@ -27,7 +27,8 @@ See for key "grunt" in package.json
   "scripts": [
     {
       "path": "scripts",
-      "buildFile": "build.js"
+      "buildFile": "build.js",
+      "amd": true
     }
   ],
   "jshint": {
@@ -36,6 +37,8 @@ See for key "grunt" in package.json
   }
 }
 ```
+
+"amd" flag for AMD style of js-modules ([RequireJS](http://requirejs.org/))
 
 Commands
 --------

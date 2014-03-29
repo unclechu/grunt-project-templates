@@ -3,7 +3,7 @@
  * @author Viacheslav Lotsmanov
  */
 
-// isolated view scope automatically
-
-var varname = 'check'; // isolated
-alert('"varname" in "main" module: ' + typeof varname);
+define(function () {
+    alert('Main module');
+    require(['dir/test', 'preprocess']);
+});

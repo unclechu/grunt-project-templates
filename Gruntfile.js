@@ -10,6 +10,8 @@ module.exports = function (grunt) {
         uglify_files: {},
         jshint_files: ['Gruntfile.js'],
         wrap_files: [],
+        amdwrap_libs_files: [],
+        amdwrap_src_files: [],
     };
 
     var watch = {
@@ -83,13 +85,17 @@ module.exports = function (grunt) {
             options: { separator: '\n;\n' },
             src: [
                 item.path + '/libs/**/*.js',
-                item.path + '/build/processed/**/*.js'
+                item.path + '/build/processed/**/*.js',
             ],
             dest: buildFilePath,
         };
 
         // js hint
         scripts.jshint_files.push(item.path + '/build/processed/**/*.js');
+        if (item.amd) {
+            // ignore libs
+            scripts.jshint_files.push('!' + item.path + '/build/processed/libs/**/*.js');
+        }
 
         // watch
         var jsWatch = [
@@ -103,12 +109,27 @@ module.exports = function (grunt) {
         cleanJS.push(item.path + '/build');
 
         // wrap
-        scripts.wrap_files.push({
-            expand: true,
-            cwd: item.path + '/src/',
-            src: [ '**/*.js' ],
-            dest: item.path + '/build/wrap/'
-        });
+        if (item.amd) {
+            scripts.amdwrap_libs_files.push({
+                expand: true,
+                cwd: item.path + '/libs/',
+                src: [ '**/*.js' ],
+                dest: item.path + '/build/wrap/libs/',
+            });
+            scripts.amdwrap_src_files.push({
+                expand: true,
+                cwd: item.path + '/src/',
+                src: [ '**/*.js' ],
+                dest: item.path + '/build/wrap/',
+            });
+        } else {
+            scripts.wrap_files.push({
+                expand: true,
+                cwd: item.path + '/src/',
+                src: [ '**/*.js' ],
+                dest: item.path + '/build/wrap/',
+            });
+        }
     });
 
     grunt.initConfig({
@@ -125,7 +146,6 @@ module.exports = function (grunt) {
             options: {
                 browser: true,
                 jquery: true,
-                eqeqeq: false,
             },
             all: scripts.jshint_files,
         },
@@ -150,7 +170,16 @@ module.exports = function (grunt) {
                     wrapper: ['\n;(function () {\n', '\n})();\n'],
                 },
                 files: scripts.wrap_files,
-            }
+            },
+        },
+        amdwrap: {
+            libs: {
+                options: { dir: 'libs' },
+                files: scripts.amdwrap_libs_files,
+            },
+            src: {
+                files: scripts.amdwrap_src_files,
+            },
         },
         'grunt-clean': {
             js: cleanJS,
@@ -158,9 +187,9 @@ module.exports = function (grunt) {
             dist: [
                 'grunt',
                 'start-http-server',
-                'node_modules'
+                'node_modules',
             ],
-        }
+        },
     });
 
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -170,6 +199,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-wrap');
+    grunt.loadNpmTasks('grunt-amdwrap');
     grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.task.renameTask('clean', 'grunt-clean');
@@ -192,7 +222,7 @@ module.exports = function (grunt) {
 
     var buildJS = [
         'clean-js',
-        'wrap:js',
+        'wrap:js', 'amdwrap:libs', 'amdwrap:src',
         'build-preprocess',
     ];
     var buildJSPart2 = [
@@ -205,7 +235,7 @@ module.exports = function (grunt) {
 
     var buildJSProduction = [
         'clean-js',
-        'wrap:js',
+        'wrap:js', 'amdwrap:libs', 'amdwrap:src',
         'build-preprocess',
     ];
     var buildJSProductionPart2 = [

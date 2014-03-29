@@ -1,10 +1,10 @@
 /**
- * @module dir/test
+ * @module preprocess
  * @author Viacheslav Lotsmanov
  */
 
 define(['jquery'], function ($) {
 $(function domReady() {
-    alert('Module "dir/test"\nH1 text: ' + $('h1').text());
+    alert('Module "preprocess"\nProcessed value: /* @echo PREPROCESS */');
 }); // domReady
 }); // define
