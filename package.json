@@ -29,6 +29,7 @@
       {
         "path": "scripts",
         "buildFile": "build.js",
+        "notAmdFiles": [ "*require*.js" ],
         "amd": true
       }
     ],

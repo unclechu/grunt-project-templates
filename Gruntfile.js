@@ -1,5 +1,5 @@
 module.exports = function (grunt) {
-    
+
     var pkg = grunt.file.readJSON('package.json');
 
     var styles = {};
@@ -68,25 +68,42 @@ module.exports = function (grunt) {
 
         // preprocess variables
         var context;
-        var variablesPath = item.path +'/src/preprocess_context.json';
+        var variablesPath = item.path + '/src/preprocess_context.json';
         try { context = grunt.file.readJSON(variablesPath); } catch (err) { context = {}; }
+        var preprocessSrc = [ '**/*.js' ];
+        if (item.amd) {
+            // ignore libs
+            preprocessSrc.push('!libs/**/*.js');
+        }
         scripts.preprocess['js_'+i] = {
             options: { context: context },
             files: [{
                 expand: true,
                 cwd: item.path + '/build/wrap/',
-                src: [ '**/*.js' ],
+                src: preprocessSrc,
                 dest: item.path + '/build/processed/',
             }],
         };
 
         // concat
+        var concatSrc = [
+            item.path + '/build/processed/**/*.js',
+        ];
+        if (item.amd) {
+            concatSrc.unshift(item.path + '/build/wrap/libs/**/*.js');
+            if (item.notAmdFiles) {
+                item.notAmdFiles.reverse().forEach(function (val) {
+                    concatSrc.unshift(item.path + '/libs/' + val);
+                    concatSrc.unshift(item.path + '/src/' + val);
+                });
+            }
+        } else {
+            concatSrc.unshift(item.path + '/libs/**/*.js');
+        }
+        console.log(concatSrc);
         scripts.concat['js_'+i] = {
             options: { separator: '\n;\n' },
-            src: [
-                item.path + '/libs/**/*.js',
-                item.path + '/build/processed/**/*.js',
-            ],
+            src: concatSrc,
             dest: buildFilePath,
         };
 
@@ -110,16 +127,22 @@ module.exports = function (grunt) {
 
         // wrap
         if (item.amd) {
+            var wrapSrc = [ '**/*.js' ];
+            if (item.notAmdFiles) {
+                item.notAmdFiles.forEach(function (val) {
+                    wrapSrc.push('!' + val);
+                });
+            }
             scripts.amdwrap_libs_files.push({
                 expand: true,
                 cwd: item.path + '/libs/',
-                src: [ '**/*.js' ],
+                src: wrapSrc,
                 dest: item.path + '/build/wrap/libs/',
             });
             scripts.amdwrap_src_files.push({
                 expand: true,
                 cwd: item.path + '/src/',
-                src: [ '**/*.js' ],
+                src: wrapSrc,
                 dest: item.path + '/build/wrap/',
             });
         } else {

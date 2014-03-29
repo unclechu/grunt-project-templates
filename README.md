@@ -28,6 +28,7 @@ See for key "grunt" in package.json
     {
       "path": "scripts",
       "buildFile": "build.js",
+      "notAmdFiles": [ "*require*.js" ],
       "amd": true
     }
   ],
