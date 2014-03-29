@@ -100,7 +100,6 @@ module.exports = function (grunt) {
         } else {
             concatSrc.unshift(item.path + '/libs/**/*.js');
         }
-        console.log(concatSrc);
         scripts.concat['js_'+i] = {
             options: { separator: '\n;\n' },
             src: concatSrc,
