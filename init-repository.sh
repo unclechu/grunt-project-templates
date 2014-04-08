@@ -74,6 +74,20 @@ function info_err_clean {
     _info_pattern "" 2 "$clr_err" "" "$@"
 }
 
+# info inline clean
+
+function info_inline_clean {
+    _info_pattern "-n" 1 "$clr_info" "" "$@"
+}
+
+function info_inline_ok_clean {
+    _info_pattern "-n" 1 "$clr_ok" "" "$@"
+}
+
+function info_inline_err_clean {
+    _info_pattern "-n" 2 "$clr_err" "" "$@"
+}
+
 # statuses
 
 function ok {
@@ -100,7 +114,13 @@ function ask {
     fi
 }
 
-# checking
+function type {
+    echo -en "${clr_ask}${@}${clr_end}: "
+    read answer
+    return "$answer"
+}
+
+# ...
 
 info_inline "Checking for grunt"
 if [ -e ./node_modules/.bin/grunt ]; then ok; else
