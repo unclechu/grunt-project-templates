@@ -88,6 +88,23 @@ function info_inline_err_clean {
     _info_pattern "-n" 2 "$clr_err" "" "$@"
 }
 
+# run wrappers
+
+function run_inline_answer_silent {
+    errlog=$("${@}" 2>&1)
+    if [ $? -ne 0 ]; then
+        err 1
+        info_clean "Command: '${@}'"
+        info_err_clean "Error log: '${errlog}'"
+        exit 1
+    fi
+}
+
+function run_inline_answer {
+    run_inline_answer_silent "${@}"
+    ok
+}
+
 # statuses
 
 function ok {
