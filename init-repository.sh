@@ -114,7 +114,7 @@ function ask {
     fi
 }
 
-function type {
+function please_type {
     echo -en "${clr_ask}${@}${clr_end}: "
     read answer
     return "$answer"
