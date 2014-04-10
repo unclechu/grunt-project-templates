@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Author: Viacheslav Lotsmanov
-# License: GPLv3
+# License: GNU/GPLv3 by Free Software Foundation
 #
 
 PARENT_DEPLOY_SCRIPT=true

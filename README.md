@@ -1,7 +1,7 @@
 grunt-project-templates
 =======================
 
-Templates of new projects on grunt
+Templates of new projects with grunt
 
 Usage
 =====
@@ -109,8 +109,32 @@ Scripts load order
 
 If you need to specific load order, just name your scripts with number prefixes:
 
-1. libs/01-jquery.js
-2. libs/02-jquery.mousewheel.plugin.js
-3. src/01-main.js
-4. src/02-header.js
-5. src/03-forms.js
+1. libs/10-jquery.js
+2. libs/20-jquery.mousewheel.plugin.js
+3. src/10-main.js
+4. src/20-header.js
+5. src/30-forms.js
+
+For AMD style you need only require.js at first:
+
+1. libs/10-require.js
+2. libs/jquery.js
+3. libs/jquery.mousewheel.plugin.js
+4. src/main.js
+5. src/header.js
+6. src/forms.js
+
+Issues
+======
+
+https://github.com/unclechu/grunt-project-templates/issues
+
+Author
+======
+
+Viacheslav Lotsmanov
+
+License
+=======
+
+[GNU/GPLv3 by Free Software Foundation](./LICENSE)

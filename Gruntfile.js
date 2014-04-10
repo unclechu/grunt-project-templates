@@ -1,3 +1,8 @@
+/*!
+ * Author: Viacheslav Lotsmanov
+ * License: GNU/GPLv3 by Free Software Foundation
+ */
+
 module.exports = function (grunt) {
 
     var pkg = grunt.file.readJSON('package.json');
