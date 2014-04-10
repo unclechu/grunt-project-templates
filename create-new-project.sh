@@ -59,12 +59,12 @@ fi
 run git init
 run git submodule add "$SUBM_REPO" "$SUBM_NAME"
 run git config -f "./.gitmodules" "submodule.${SUBM_NAME}.branch" "$SUBM_BRANCH"
-run git submodule update --init --remote
+run git submodule update --init
 run git add "./.gitmodules" "$SUBM_NAME"
 run git commit -m "$SUBM_NAME submodule"
 
 run ln -s "./$SUBM_NAME/Gruntfile.js"
-run ln -s "./$SUBM_NAME/init-repository.sh"
+run ln -s "./$SUBM_NAME/deploy.sh"
 
 run ls "./$SUBM_NAME/" \
     | grep -iv README \

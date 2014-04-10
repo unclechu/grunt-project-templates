@@ -142,7 +142,7 @@ if [ -e ./node_modules/.bin/grunt ]; then ok; else
     err 1;
     info_err_clean "No grunt!" \
         "You need to do \`${clr_info}npm install${clr_err}\`" \
-        "before this script!"
+        "before deploy script!"
 
     if ask "Do \`${clr_info}npm install${clr_ask}\` now?"; then
         if ! npm install; then exit 1; fi
@@ -162,12 +162,12 @@ if ./grunt; then
     info_inline "Grunt default tasks status:"; ok;
 else err; fi
 
-# custom init actions
-if [ -f ./init-custom.sh ]; then
-    source ./init-custom.sh
+# custom deploy actions
+if [ -f ./deploy-custom.sh ]; then
+    source ./deploy-custom.sh
 fi
 
-info_ok_clean "This repository is correctly initialized!"
+info_ok_clean "This repository is successfully deployed!"
 exit 0
 
 # vim:set ts=4 sw=4 et:
