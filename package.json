@@ -13,7 +13,7 @@
     "grunt-contrib-clean": "~0.5.0"
   },
   "scripts": {
-    "postinstall": "./deploy.sh"
+    "postinstall": "bash ./deploy.sh"
   },
   "repository": "https://github.com/unclechu/grunt-project-templates",
   "author": "Viacheslav Lotsmanov",
