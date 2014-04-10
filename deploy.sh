@@ -4,6 +4,8 @@
 # License: GPLv3
 #
 
+PARENT_DEPLOY_SCRIPT=true
+
 clr_info='\e[0;36m'
 clr_ok='\e[0;32m'
 clr_ask='\e[0;34m'
