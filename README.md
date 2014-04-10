@@ -9,14 +9,16 @@ Usage
 First initialization
 --------------------
 
-    $ npm install
+```bash
+$ npm install
+```
 
 Configutaion
 ------------
 
 See for key "grunt" in package.json
 
-```
+```json
 "grunt": {
   "styles": [
     {
@@ -46,55 +48,81 @@ Commands
 
 Build all (styles and scripts) for production:
 
-    $ ./grunt
+```bash
+$ ./grunt
+```
 
 Or:
 
-    $ ./grunt production
+```bash
+$ ./grunt production
+```
 
 Development build (styles and scripts):
 
-    $ ./grunt build
+```bash
+$ ./grunt build
+```
 
 Or:
 
-    $ ./grunt development
+```bash
+$ ./grunt development
+```
 
 Development build (only styles):
 
-    $ ./grunt build-less
+```bash
+$ ./grunt build-less
+```
 
 Development build (only scripts):
 
-    $ ./grunt build-js
+```bash
+$ ./grunt build-js
+```
 
 Cleanup all builded files:
 
-    $ ./grunt clean
+```bash
+$ ./grunt clean
+```
 
 Cleanup only styles builds:
 
-    $ ./grunt clean-less
+```bash
+$ ./grunt clean-less
+```
 
 Cleanup only scripts builds:
 
-    $ ./grunt clean-js
+```bash
+$ ./grunt clean-js
+```
 
 Cleanup initialization:
 
-    $ ./grunt distclean
+```bash
+$ ./grunt distclean
+```
 
 Watch for any changes (in styles and in scripts) and rebuilding:
 
-    $ ./grunt watcher
+```bash
+$ ./grunt watcher
+```
 
 Watch for changes in styles only and rebuilding:
 
-    $ ./grunt watcher-less
+```bash
+$ ./grunt watcher-less
+```
 
 Watch for changes in scripts only and rebuilding:
 
-    $ ./grunt watcher-js
+```bash
+$ ./grunt watcher-js
+```
 
 Preprocessing
 -------------
