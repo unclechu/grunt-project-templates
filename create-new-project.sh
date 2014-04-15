@@ -8,6 +8,8 @@ SUBM_REPO="https://github.com/unclechu/grunt-project-templates/"
 SUBM_NAME="grunt-template"
 SUBM_BRANCH="markup" # default value
 
+THIS_FILENAME="create-new-project.sh"
+
 clr_info='\e[0;36m'
 clr_ok='\e[0;32m'
 clr_ask='\e[0;34m'
@@ -44,6 +46,16 @@ function ask {
     fi
 }
 
+# get first element in array (by delimiter)
+function get_delim_first {
+    echo "$1" | sed -e 's/^\([^:]\+\).*$/\1/'
+}
+
+function remove_delim_first {
+    item=$(echo "$1" | sed -e 's/^\([^:]\+\).*$/\1/')
+    echo "${1:$[${#item}+1]}"
+}
+
 if [ -z "$1" ]; then
     if ask "You not specify branch of template in first argument," \
            "use the \"${clr_info}markup${clr_ask}\" template branch?"; then
@@ -60,19 +72,34 @@ run git init
 run git submodule add "$SUBM_REPO" "$SUBM_NAME"
 run git config -f "./.gitmodules" "submodule.${SUBM_NAME}.branch" "$SUBM_BRANCH"
 run git submodule update --init
+run cd "./$SUBM_NAME/"
+run git checkout "$SUBM_BRANCH"
+run cd ..
 run git add "./.gitmodules" "$SUBM_NAME"
 run git commit -m "$SUBM_NAME submodule"
 
 run ln -s "./$SUBM_NAME/Gruntfile.js"
 run ln -s "./$SUBM_NAME/deploy.sh"
 
-run ls "./$SUBM_NAME/" \
+arr="$(ls "./$SUBM_NAME/" \
     | grep -iv README \
     | grep -iv node_modules \
     | grep -iv LICENSE \
     | grep -iv grunt \
-    | grep -iv init \
-    | xargs -I {} cp "./$SUBM_NAME/{}" ./ -R
+    | grep -ivF deploy.sh \
+    | grep -ivF "$THIS_FILENAME" \
+    | tr '\n' ':')"
+while true; do
+    [ -z "$arr" ] && break
+    item=$(get_delim_first "$arr")
+    arr=$(remove_delim_first "$arr")
+
+    if [ -d "./$SUBM_NAME/$item" ]; then
+        run cp "./$SUBM_NAME/$item/" ./ -R
+    else
+        run cp "./$SUBM_NAME/$item" ./
+    fi
+done
 
 run cp "./$SUBM_NAME/.gitignore" ./
 
@@ -80,7 +107,9 @@ run npm install
 
 echo -e "${clr_ok}Success! Project created by template \"$SUBM_BRANCH\".${clr_end}"
 
-ask "Remove \"${clr_info}${0}${clr_ask}\" script?" && rm "$0"
+if [ -f "$THIS_FILENAME" ]; then
+    ask "Remove \"${clr_info}${THIS_FILENAME}${clr_ask}\" script?" && rm "$THIS_FILENAME"
+fi
 exit 0
 
 # vim:set ts=4 sw=4 et:
