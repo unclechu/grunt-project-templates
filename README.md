@@ -6,8 +6,8 @@ Templates of new projects with grunt
 Usage
 =====
 
-First initialization
---------------------
+Deployment
+----------
 
 ```bash
 $ ./deploy.sh
