@@ -10,7 +10,7 @@ First initialization
 --------------------
 
 ```bash
-$ npm install
+$ ./deploy.sh
 ```
 
 Configutaion
