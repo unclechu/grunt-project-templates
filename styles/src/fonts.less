@@ -1,9 +1,27 @@
-@font-face {
-    font-family: 'clear_sansregular';
-    src: url('../../fonts/clearsans-regular.eot');
-    src: url('../../fonts/clearsans-regular.eot?#iefix') format('embedded-opentype'),
-         url('../../fonts/clearsans-regular.woff') format('woff'),
-         url('../../fonts/clearsans-regular.ttf') format('truetype');
+/**
+ * Font-faces
+ *
+ * @author Viacheslav Lotsmanov
+ */
+
+// @fileName without extension
+.fontDefine(@fontName, @fileName) {
+    font-family: '@{fontName}';
+    src: url('@{fontsPrefix}@{fileName}.eot?v=@{revision}');
+    src: url('@{fontsPrefix}@{fileName}.eot?v=@{revision}#iefix') format('embedded-opentype'),
+         url('@{fontsPrefix}@{fileName}.woff?v=@{revision}') format('woff'),
+         url('@{fontsPrefix}@{fileName}.ttf?v=@{revision}') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face { .fontDefine('clear_sansbold', 'clearsans-bold'); }
+@font-face { .fontDefine('clear_sansbold_italic', 'clearsans-bolditalic'); }
+@font-face { .fontDefine('clear_sansitalic', 'clearsans-italic'); }
+@font-face { .fontDefine('clear_sans_lightregular', 'clearsans-light'); }
+@font-face { .fontDefine('clear_sans_mediumregular', 'clearsans-medium'); }
+@font-face { .fontDefine('clear_sans_mediumitalic', 'clearsans-mediumitalic'); }
+@font-face { .fontDefine('clear_sansregular', 'clearsans-regular'); }
+@font-face { .fontDefine('clear_sans_thinregular', 'clearsans-thin'); }
+
+// vim: set sw=4 ts=4 et foldmethod=marker ff=unix fenc=utf-8 :

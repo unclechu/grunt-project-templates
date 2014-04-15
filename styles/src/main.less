@@ -1,4 +1,6 @@
 /**
+ * Main less module
+ *
  * @author Viacheslav Lotsmanov
  */
 
@@ -10,6 +12,14 @@
 
 @import "mixins";
 @import "icons";
+
+/* === ELEMENTS === */
+
+@import "headers";
+
+/* === PAGES === */
+
+@import "pages/main";
 
 /* === RESET === */
 
@@ -34,20 +44,11 @@ html {
     color: @contentColor;
     font: @contentFont;
 
-    h1 { .fontMetrics(@h1FontSize, @h1FontSize*2); }
-    h2 { .fontMetrics(@h2FontSize, @h2FontSize*4); }
     a { .simpleLink; }
-
-    .main_block {
-        display: block;
-        min-width: @minWidth;
-        max-width: @maxWidth;
-        background: #eaeaea;
-        margin: 0 auto;
-        min-height: 100%;
-    }
 }
 
 html.ie8 {
     // IE8 bugfixes
 }
+
+// vim: set sw=4 ts=4 et foldmethod=marker ff=unix fenc=utf-8 :

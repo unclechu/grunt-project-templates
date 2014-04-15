@@ -1,6 +1,9 @@
 /**
+ * Mixins collection
+ *
  * @author Viacheslav Lotsmanov
  * @author Fedor Pudeyan
+ * @version 0.2
  */
 
 @import "lesshat";
@@ -91,3 +94,33 @@
     border-bottom-style: dotted;
     cursor: pointer;
 }
+
+/* === PATHS WRAPPERS === */
+
+.bgImg(@path) {
+    background-image: url('@{imgPrefix}@{path}?v=@{revision}');
+}
+
+.bg(@path, @addit) {
+    background: url('@{imgPrefix}@{path}?v=@{revision}') @addit;
+}
+
+/* IE8 FIXES {{{1 */
+
+.IE8doublePseudo() {
+    &:before { visibility: visible; }
+    &:after { visibility: hidden; }
+    &:hover, &.focus {
+        &:before { visibility: hidden; }
+        &:after { visibility: visible; }
+    }
+}
+
+.IE8singlePseudo() {
+    &:before { visibility: hidden; }
+    &:hover:before { visibility: visible; }
+}
+
+/* IE8 FIXES }}}1 */
+
+// vim: set sw=4 ts=4 et foldmethod=marker ff=unix fenc=utf-8 :

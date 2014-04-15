@@ -1,12 +1,22 @@
 /**
  * Variables module
+ *
  * @author Viacheslav Lotsmanov
  */
 
+/* === PATHS === */
+
+@tplPath: '../../';
+@imgPrefix: '@{tplPath}images/';
+@fontsPrefix: '@{tplPath}fonts/';
+
+// for images and fonts
+@revision: 1;
+
 /* === SIZES === */
 
-@minWidth: 980px;
-@maxWidth: 1390px;
+@minWidth: 600px;
+@maxWidth: 800px;
 
 /* === FONTS === */
 
@@ -26,4 +36,7 @@
 
 /* === TRANSITIONS === */
 
-@linkTransition: color 0.2s linear, border-bottom-color 0.2s linear;
+@animationSpeed: 0.2s;
+@linkTransition: color @animationSpeed linear, border-bottom-color @animationSpeed linear;
+
+// vim: set sw=4 ts=4 et foldmethod=marker ff=unix fenc=utf-8 :
