@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Author: Viacheslav Lotsmanov
-# License: GPLv3
+# License: GNU/GPLv3 by Free Software Foundation
 #
 
 SUBM_REPO="https://github.com/unclechu/grunt-project-templates/"
@@ -81,14 +81,14 @@ run git commit -m "$SUBM_NAME submodule"
 run ln -s "./$SUBM_NAME/Gruntfile.js"
 run ln -s "./$SUBM_NAME/deploy.sh"
 
-arr="$(ls "./$SUBM_NAME/" \
+arr=$(ls "./$SUBM_NAME/" \
     | grep -iv README \
     | grep -iv node_modules \
     | grep -iv LICENSE \
     | grep -iv grunt \
     | grep -ivF deploy.sh \
     | grep -ivF "$THIS_FILENAME" \
-    | tr '\n' ':')"
+    | tr '\n' ':')
 while true; do
     [ -z "$arr" ] && break
     item=$(get_delim_first "$arr")

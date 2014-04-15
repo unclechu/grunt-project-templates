@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 # Author: Viacheslav Lotsmanov
+# License: GNU/GPLv3 by Free Software Foundation
 #
 
 if [ ! "$PARENT_DEPLOY_SCRIPT" = true ]; then
