@@ -33,14 +33,14 @@ if [ -f '.gitmodules' ]; then
         err
     fi
 
-    info "cd 'grunt-template'"
-    run_inline_answer cd 'grunt-template'
+    info_inline "cd 'grunt-template'"
+    cd 'grunt-template' && ok || err
 
-    info "git checkout '$branch'"
+    info_inline "git checkout '$branch'"
     run_inline_answer git checkout "$branch"
 
-    info "cd .."
-    run_inline_answer cd ..
+    info_inline "cd .."
+    cd .. && ok || err
 
     ok
 else
