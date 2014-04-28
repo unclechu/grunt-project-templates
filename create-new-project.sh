@@ -4,9 +4,9 @@
 # License: GNU/GPLv3 by Free Software Foundation
 #
 
-SUBM_REPO="https://github.com/unclechu/grunt-project-templates/"
-SUBM_NAME="grunt-template"
-SUBM_BRANCH="markup" # default value
+REPO_URL="https://github.com/unclechu/grunt-project-templates/"
+REPO_LOCAL_DIR="grunt-template"
+REPO_BRANCH="markup" # default value
 
 THIS_FILENAME="create-new-project.sh"
 
@@ -59,34 +59,22 @@ function remove_delim_first {
 if [ -z "$1" ]; then
     if ask "You not specify branch of template in first argument," \
            "use the \"${clr_info}markup${clr_ask}\" template branch?"; then
-        run "$0" "$SUBM_BRANCH"
+        run "$0" "$REPO_BRANCH"
         exit $?
     else
         exit 1
     fi
 else
-    SUBM_BRANCH="$1"
+    REPO_BRANCH="$1"
 fi
 
 run git init
-run git submodule add "$SUBM_REPO" "$SUBM_NAME"
-run git config -f "./.gitmodules" "submodule.${SUBM_NAME}.branch" "$SUBM_BRANCH"
-run git submodule update --init
-run cd "./$SUBM_NAME/"
-run git checkout "$SUBM_BRANCH"
-run cd ..
-run git add "./.gitmodules" "$SUBM_NAME"
-run git commit -m "$SUBM_NAME submodule"
+run git clone -b "$REPO_BRANCH" "$REPO_URL" "$REPO_LOCAL_DIR"
 
-run ln -s "./$SUBM_NAME/Gruntfile.js"
-run ln -s "./$SUBM_NAME/deploy.sh"
-
-arr=$(ls "./$SUBM_NAME/" \
+arr=$(ls "./$REPO_LOCAL_DIR/" \
     | grep -iv README \
     | grep -iv node_modules \
     | grep -iv LICENSE \
-    | grep -iv grunt \
-    | grep -ivF deploy.sh \
     | grep -ivF "$THIS_FILENAME" \
     | tr '\n' ':')
 while true; do
@@ -94,21 +82,24 @@ while true; do
     item=$(get_delim_first "$arr")
     arr=$(remove_delim_first "$arr")
 
-    if [ -d "./$SUBM_NAME/$item" ]; then
-        run cp "./$SUBM_NAME/$item/" ./ -R
+    if [ -d "./$REPO_LOCAL_DIR/$item" ]; then
+        run cp -R "./$REPO_LOCAL_DIR/$item/" ./
     else
-        run cp "./$SUBM_NAME/$item" ./
+        run cp "./$REPO_LOCAL_DIR/$item" ./
     fi
 done
 
-run cp "./$SUBM_NAME/.gitignore" ./
+run cp "./$REPO_LOCAL_DIR/.gitignore" ./
 
 run npm install
 
-echo -e "${clr_ok}Success! Project created by template \"$SUBM_BRANCH\".${clr_end}"
+echo -e "${clr_ok}Success! Project created by template \"$REPO_BRANCH\".${clr_end}"
 
 if [ -f "$THIS_FILENAME" ]; then
     ask "Remove \"${clr_info}${THIS_FILENAME}${clr_ask}\" script?" && rm "$THIS_FILENAME"
+fi
+if [ -d "$REPO_LOCAL_DIR" ]; then
+    ask "Remove temporary directory \"${clr_info}${REPO_LOCAL_DIR}${clr_ask}\"?" && rm -rf "$REPO_LOCAL_DIR"
 fi
 exit 0
 
