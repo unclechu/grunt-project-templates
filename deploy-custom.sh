@@ -13,7 +13,7 @@ fi
 not_indexed="./dev_files/not_indexed"
 
 info_inline "Deprivation of privileges group and others"
-run_inline_answer chmod go-rwx -R .
+run_inline_answer chmod -R go-rwx .
 
 safe_perm_dir="0700"
 safe_perm_file="0600"
