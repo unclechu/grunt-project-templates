@@ -38,7 +38,11 @@ module.exports = function (grunt) {
         Array.prototype.push.apply(watch.all, lessWatch);
 
         // clean
-        cleanLess.push(item.path + '/build');
+        if (item.cleanOnlyFiles) {
+            cleanLess.push(item.path + '/build/**/*.less');
+        } else {
+            cleanLess.push(item.path + '/build');
+        }
 
         // less compile
         var lessFiles = {};
@@ -127,7 +131,11 @@ module.exports = function (grunt) {
         Array.prototype.push.apply(watch.all, jsWatch);
 
         // clean
-        cleanJS.push(item.path + '/build');
+        if (item.cleanOnlyFiles) {
+            cleanJS.push(item.path + '/build/**/*.js');
+        } else {
+            cleanJS.push(item.path + '/build');
+        }
 
         // wrap
         if (item.amd) {
