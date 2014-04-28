@@ -1,7 +1,7 @@
 /**
  * Localization module
  *
- * @module localization
+ * @module get_local_text
  * @author Viacheslav Lotsmanov
  * @encoding utf-8
  * @version 0.2
