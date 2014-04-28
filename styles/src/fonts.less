@@ -5,7 +5,7 @@
  */
 
 // @fileName without extension
-.fontDefine(@fontName, @fileName) {
+.fontDefine(@fontName, @fileName: @fontName) {
     font-family: '@{fontName}';
     src: url('@{fontsPrefix}@{fileName}.eot?v=@{revision}');
     src: url('@{fontsPrefix}@{fileName}.eot?v=@{revision}#iefix') format('embedded-opentype'),
