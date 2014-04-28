@@ -8,6 +8,7 @@ module.exports = function (grunt) {
     var pkg = grunt.file.readJSON('package.json');
 
     var styles = {};
+    var stylesCopyList = [];
 
     var scripts = {
         concat: {},
@@ -17,6 +18,7 @@ module.exports = function (grunt) {
         wrap_files: [],
         amdwrap_libs_files: [],
         amdwrap_src_files: [],
+        copyList: [],
     };
 
     var watch = {
@@ -48,6 +50,14 @@ module.exports = function (grunt) {
         var lessFiles = {};
         for (var key in item.files) {
             lessFiles[item.path +'/build/'+ key] = item.path +'/src/'+ item.files[key];
+
+            // copy
+            if (item.copyBuildTo) {
+                stylesCopyList.push({
+                    src: item.path +'/build/'+ key,
+                    dest: item.copyBuildTo + '/' + key,
+                });
+            }
         }
         styles['development_'+i] = {
             options: {
@@ -165,6 +175,14 @@ module.exports = function (grunt) {
                 dest: item.path + '/build/wrap/',
             });
         }
+
+        // copy
+        if (item.copyBuildTo) {
+            scripts.copyList.push({
+                src: buildFilePath,
+                dest: item.copyBuildTo + '/' + item.buildFile,
+            });
+        }
     });
 
     grunt.initConfig({
@@ -216,6 +234,10 @@ module.exports = function (grunt) {
                 files: scripts.amdwrap_src_files,
             },
         },
+        copy: {
+            js: { files: scripts.copyList },
+            less: { files: stylesCopyList },
+        },
         'grunt-clean': {
             js: cleanJS,
             less: cleanLess,
@@ -236,6 +258,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-wrap');
     grunt.loadNpmTasks('grunt-amdwrap');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.task.renameTask('clean', 'grunt-clean');
 
@@ -262,6 +285,7 @@ module.exports = function (grunt) {
     ];
     var buildJSPart2 = [
         'build-concat',
+        'copy:js',
     ];
     if (pkg.grunt.jshint.development) {
         buildJS.push('jshint');
@@ -276,6 +300,7 @@ module.exports = function (grunt) {
     var buildJSProductionPart2 = [
         'build-concat',
         'uglify:js',
+        'copy:js',
     ];
     if (pkg.grunt.jshint.production) {
         buildJSProduction.push('jshint');
@@ -293,6 +318,8 @@ module.exports = function (grunt) {
             buildLessProduction.push('less:' + key);
         }
     }
+    buildLess.push('copy:less');
+    buildLessProduction.push('copy:less');
 
     grunt.registerTask('build-js', buildJS);
     grunt.registerTask('build-js-production', buildJSProduction);
