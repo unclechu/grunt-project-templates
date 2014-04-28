@@ -24,25 +24,3 @@ if [ ! -d "$not_indexed" ]; then
     info_inline "Set safe permissions for '$not_indexed' directory"
     run_inline_answer chmod "$safe_perm_dir" "$not_indexed"
 fi
-
-info "Checkout branch in 'grunt-template'"
-if [ -f '.gitmodules' ]; then
-    branch=$(git config -f ".gitmodules" "submodule.grunt-template.branch")
-    if [ -z "$branch" ]; then
-        info_err "Cannot get branch from '.gitmodules' file"
-        err
-    fi
-
-    info_inline "cd 'grunt-template'"
-    cd 'grunt-template' && ok || err
-
-    info_inline "git checkout '$branch'"
-    run_inline_answer git checkout "$branch"
-
-    info_inline "cd .."
-    cd .. && ok || err
-
-    ok
-else
-    info_inline 'Skipped'; ok
-fi
