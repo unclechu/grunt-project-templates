@@ -285,8 +285,10 @@ module.exports = function (grunt) {
     ];
     var buildJSPart2 = [
         'build-concat',
-        'copy:js',
     ];
+    if (scripts.copyList.length > 0) {
+        buildJSPart2.push('copy:js');
+    }
     if (pkg.grunt.jshint.development) {
         buildJS.push('jshint');
     }
@@ -300,8 +302,10 @@ module.exports = function (grunt) {
     var buildJSProductionPart2 = [
         'build-concat',
         'uglify:js',
-        'copy:js',
     ];
+    if (scripts.copyList.length > 0) {
+        buildJSProductionPart2.push('copy:js');
+    }
     if (pkg.grunt.jshint.production) {
         buildJSProduction.push('jshint');
     }
@@ -318,8 +322,10 @@ module.exports = function (grunt) {
             buildLessProduction.push('less:' + key);
         }
     }
-    buildLess.push('copy:less');
-    buildLessProduction.push('copy:less');
+    if (stylesCopyList.length > 0) {
+        buildLess.push('copy:less');
+        buildLessProduction.push('copy:less');
+    }
 
     grunt.registerTask('build-js', buildJS);
     grunt.registerTask('build-js-production', buildJSProduction);
