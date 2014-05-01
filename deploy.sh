@@ -137,7 +137,7 @@ function please_type {
     echo -en "${clr_ask}${@}${clr_end}: "
 }
 
-# ...
+# default deploy actions
 
 info_inline "Checking for grunt"
 if [ -e ./node_modules/.bin/grunt ]; then ok; else
@@ -165,9 +165,11 @@ if ./grunt; then
 else err; fi
 
 # custom deploy actions
-if [ -f ./deploy-custom.sh ]; then
-    source ./deploy-custom.sh
-fi
+
+info_inline "Deprivation of privileges group and others"
+run_inline_answer chmod -R go-rwx .
+
+# finishing of deploying
 
 info_ok_clean "This repository is successfully deployed!"
 exit 0
