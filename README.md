@@ -16,7 +16,7 @@ $ ./deploy.sh
 Configutaion
 ------------
 
-See for key "grunt" in package.json
+See for key "grunt" in [package.json](./package.json)
 
 ```json
 "grunt": {
