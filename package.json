@@ -1,17 +1,18 @@
 {
   "dependencies": {
-    "grunt": "~0.4.4",
-    "grunt-cli": "~0.1.13",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-uglify": "~0.4.0",
-    "grunt-preprocess": "~4.0.0",
-    "grunt-contrib-jshint": "~0.9.2",
-    "grunt-contrib-watch": "~0.6.1",
-    "grunt-contrib-less": "~0.11.0",
-    "grunt-wrap": "~0.3.0",
-    "grunt-amdwrap": "~0.0.1",
-    "grunt-contrib-clean": "~0.5.0",
-    "grunt-contrib-copy": "~0.5.0"
+    "grunt": "*",
+    "grunt-cli": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-preprocess": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-less": "*",
+    "grunt-wrap": "*",
+    "grunt-amdwrap": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-copy": "*",
+    "css-sprite": "*"
   },
   "scripts": {
     "postinstall": "bash ./deploy.sh"
@@ -37,6 +38,13 @@
     "jshint": {
       "development": true,
       "production": true
+    },
+    "sprites": {
+      "icons": {
+        "src": [ "icons/*" ],
+        "css": "styles/src/icons/icons.less",
+        "sprite": "images/icons_sprite.png"
+      }
     }
   }
 

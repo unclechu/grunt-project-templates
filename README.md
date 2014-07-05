@@ -1,7 +1,7 @@
-grunt-project-templates
-=======================
+Web front-end template based on grunt
+=====================================
 
-Templates of new projects with grunt
+Template for new front-end projects.
 
 Usage
 =====
@@ -12,6 +12,8 @@ Deployment
 ```bash
 $ ./deploy.sh
 ```
+
+Put your deploy tasks to [_deploy](./_deploy/) directory.
 
 Configutaion
 ------------
@@ -37,6 +39,13 @@ See for key "grunt" in [package.json](./package.json)
   "jshint": {
     "development": true,
     "production": true
+  },
+  "sprites": {
+    "icons": {
+      "src": [ "icons/*" ],
+      "css": "styles/src/icons/icons.less",
+      "sprite": "images/icons_sprite.png"
+    }
   }
 }
 ```
@@ -82,6 +91,12 @@ Development build (only scripts):
 $ ./grunt build-js
 ```
 
+Generating sprites
+
+```bash
+$ ./grunt gen-sprites
+```
+
 Cleanup all builded files:
 
 ```bash
@@ -98,6 +113,12 @@ Cleanup only scripts builds:
 
 ```bash
 $ ./grunt clean-js
+```
+
+Cleanup sprites:
+
+```bash
+$ ./grunt clean-sprites
 ```
 
 Cleanup initialization:

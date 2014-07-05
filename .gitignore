@@ -1,6 +1,9 @@
 *.swp
 *.log
+
 node_modules
 grunt
-*/build
-*/build
+
+images/icons_sprite.png
+styles/build
+scripts/build
