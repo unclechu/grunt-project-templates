@@ -1,3 +1,4 @@
+#!/bin/bash
 if [ -z "$PARENT_DEPLOY_SCRIPT" ]; then YOUR_SUBJECT="./_deploy/$(basename "$0")" WD="$(dirname "$0")/../" ../deploy.sh; exit "$?"; fi
 
 # Creating relative symbolic links to master site directory
