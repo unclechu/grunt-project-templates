@@ -2,6 +2,7 @@
 if [ -z "$PARENT_DEPLOY_SCRIPT" ]; then YOUR_SUBJECT="./_deploy/$(basename "$0")" WD="$(dirname "$0")/../" ../deploy.sh; exit "$?"; fi
 
 # Creating relative symbolic links to master site directory
+# Version: r2
 #
 # Put serapator "#SYMBOLIC_LINKS_START#" to ".gitignore"
 # Will be created symbolic links for all paths that after separator in .gitignore
@@ -12,36 +13,35 @@ info "Creating symbolic links"
 if [ -f '.source_of_symbolic_links' ]; then
 	info "Is source of symbolic links [ SKIPPED ]"
 elif ask "Create symbolic links to master project?"; then
-	please_type "Please enter the relative path to master copy of this project"
+	please_type "Please enter the absolute path to master project"
 	read master_path
-	wait_separator=0
-	cat ".gitignore" | while read line; do
+
+	list=$(cat .gitignore)
+	count=$(echo "$list" | wc -l)
+	symlinks_flag=0
+	for (( i="$count"; i>=0; i-- )) do
+		line=$(echo "$list" | tail -n $i | head -n 1)
+
 		if [ "$line" == "#SYMBOLIC_LINKS_START#" ]; then
-			wait_separator=1
+			symlinks_flag=1
 		fi
 
-		line=$(echo "$line" | sed -e 's/#.*$//g' | sed -e 's/\s\+$//g')
-		count=$(echo "$line" | tr '/' '\n' | wc -l)
-		up=
+		# cut off comments and whitespace characters at end of string
+		line=$(echo "$line" | sed -e 's/#.*$//g')
 
-		for (( i=1; i<$count; i++ )); do
-			up="../$up"
-		done
-
-		if [ $wait_separator -ne 0 ] && [ "$line" != "" ]; then
+		if [ $symlinks_flag -eq 1 ] && [ "${line}x" != "x" ]; then
 			if [ -h "$line" ] || ! test -e "$line"; then
 				if [ -h "$line" ]; then
 					info "rm \"$line\""
-					rm "$line"
+					#rm "$line"
 				fi
 
-				file_in_master="${master_path}/${line}"
-				relative_path="${up}${file_in_master}"
-				if [ -f "$file_in_master" ] || [ -d "$file_in_master" ] || [ -L "$file_in_master" ]; then
-					info "ln -s \"$relative_path\" \"$line\""
-					ln -s "$relative_path" "$line"
+				abs_target_path="${master_path}/${line}"
+				if [ -f "$abs_target_path" ] || [ -d "$abs_target_path" ] || [ -L "$abs_target_path" ]; then
+					info "ln -s \"$abs_target_path\" \"$line\""
+					#ln -s "$abs_target_path" "$line"
 				else
-					info_err_clean "[ SKIPPED ] \"$relative_path\" is not exists"
+					info_err_clean "[ SKIPPED ] \"$abs_target_path\" is not exists"
 				fi
 			else
 				info_err_clean "[ SKIPPED ] \"$line\" is not symbolic link"
