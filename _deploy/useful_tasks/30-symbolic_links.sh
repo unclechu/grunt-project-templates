@@ -33,13 +33,13 @@ elif ask "Create symbolic links to master project?"; then
 			if [ -h "$line" ] || ! test -e "$line"; then
 				if [ -h "$line" ]; then
 					info "rm \"$line\""
-					#rm "$line"
+					rm "$line"
 				fi
 
 				abs_target_path="${master_path}/${line}"
 				if [ -f "$abs_target_path" ] || [ -d "$abs_target_path" ] || [ -L "$abs_target_path" ]; then
 					info "ln -s \"$abs_target_path\" \"$line\""
-					#ln -s "$abs_target_path" "$line"
+					ln -s "$abs_target_path" "$line"
 				else
 					info_err_clean "[ SKIPPED ] \"$abs_target_path\" is not exists"
 				fi
