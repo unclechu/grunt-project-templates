@@ -26,7 +26,7 @@ elif ask "Create symbolic links to master project?"; then
 			symlinks_flag=1
 		fi
 
-		# cut off comments and whitespace characters at end of string
+		# cut off comments
 		line=$(echo "$line" | sed -e 's/#.*$//g')
 
 		if [ $symlinks_flag -eq 1 ] && [ "${line}x" != "x" ]; then
