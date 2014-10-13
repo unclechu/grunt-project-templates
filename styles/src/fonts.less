@@ -2,17 +2,19 @@
  * Font-faces
  *
  * @author Viacheslav Lotsmanov
+ * @license GNU/AGPLv3
+ * @see {@link https://github.com/unclechu/web-front-end-grunt-template/blob/master/LICENSE-AGPLv3|License}
  */
 
 // @fileName without extension
 .fontDefine(@fontName, @fileName: @fontName) {
-    font-family: '@{fontName}';
-    src: url('@{fontsPrefix}@{fileName}.eot?v=@{revision}');
-    src: url('@{fontsPrefix}@{fileName}.eot?v=@{revision}#iefix') format('embedded-opentype'),
-         url('@{fontsPrefix}@{fileName}.woff?v=@{revision}') format('woff'),
-         url('@{fontsPrefix}@{fileName}.ttf?v=@{revision}') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+	font-family: '@{fontName}';
+	src: url('@{fontsPrefix}@{fileName}.eot?v=@{revision}');
+	src: url('@{fontsPrefix}@{fileName}.eot?v=@{revision}#iefix') format('embedded-opentype'),
+		 url('@{fontsPrefix}@{fileName}.woff?v=@{revision}') format('woff'),
+		 url('@{fontsPrefix}@{fileName}.ttf?v=@{revision}') format('truetype');
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face { .fontDefine('clear_sansbold', 'clearsans-bold'); }
@@ -23,5 +25,3 @@
 @font-face { .fontDefine('clear_sans_mediumitalic', 'clearsans-mediumitalic'); }
 @font-face { .fontDefine('clear_sansregular', 'clearsans-regular'); }
 @font-face { .fontDefine('clear_sans_thinregular', 'clearsans-thin'); }
-
-// vim: set sw=4 ts=4 et foldmethod=marker ff=unix fenc=utf-8 :

@@ -4,6 +4,7 @@
  * @author Viacheslav Lotsmanov
  * @author Fedor Pudeyan
  * @version 0.2
+ * @license none (public domain)
  */
 
 @import "lesshat";
@@ -11,116 +12,114 @@
 /* === FONTS === */
 
 .fontMetrics(@fontSize: 12px, @lineHeight: 14px) {
-    font-size: @fontSize;
-    line-height: @lineHeight;
+	font-size: @fontSize;
+	line-height: @lineHeight;
 }
 
 /* === POSITION === */
 
 .relative(@top: auto, @right: auto, @bottom: auto, @left: auto) {
-    position: relative;
-    top: @top;
-    right: @right;
-    bottom: @bottom;
-    left: @left;
+	position: relative;
+	top: @top;
+	right: @right;
+	bottom: @bottom;
+	left: @left;
 }
 
 .absolute(@top: auto, @right: auto, @bottom: auto, @left: auto) {
-    position: absolute;
-    top: @top;
-    right: @right;
-    bottom: @bottom;
-    left: @left;
+	position: absolute;
+	top: @top;
+	right: @right;
+	bottom: @bottom;
+	left: @left;
 }
 
 .absoluteStretch(@amount: 0) {
-    .absolute(@amount, @amount, @amount, @amount);
+	.absolute(@amount, @amount, @amount, @amount);
 }
 
 .fixed(@top: auto, @right: auto, @bottom: auto, @left: auto) {
-    position: fixed;
-    top: @top;
-    right: @right;
-    bottom: @bottom;
-    left: @left;
+	position: fixed;
+	top: @top;
+	right: @right;
+	bottom: @bottom;
+	left: @left;
 }
 
 .fixedStretch(@amount: 0) {
-    .fixed(@amount, @amount, @amount, @amount);
+	.fixed(@amount, @amount, @amount, @amount);
 }
 
 /* === PSEUDO === */
 
 .pseudo(@content: '', @display: inline) {
-    content: @content;
-    display: @display;
+	content: @content;
+	display: @display;
 }
 
 .pseudoBlock(@content: '') {
-    .pseudo(@content, block);
+	.pseudo(@content, block);
 }
 
 /* === LINKS === */
 
 .linkUnderline(
-  @color: @linkColorUnderline,
-  @hoverColor: @activeLinkColorUnderline) {
-    border-bottom: 1px solid @color;
-    &:hover { border-bottom-color: @hoverColor; }
+@color: @linkColorUnderline,
+@hoverColor: @activeLinkColorUnderline) {
+	border-bottom: 1px solid @color;
+	&:hover { border-bottom-color: @hoverColor; }
 }
 
 .simpleLink(
-  @color: @linkColor,
-  @hoverColor: @activeLinkColor,
-  @colorUnderline: @linkColorUnderline,
-  @hoverColorUnderline: @activeLinkColorUnderline) {
-    display: inline;
-    color: @color;
-    text-decoration: none;
+@color: @linkColor,
+@hoverColor: @activeLinkColor,
+@colorUnderline: @linkColorUnderline,
+@hoverColorUnderline: @activeLinkColorUnderline) {
+	display: inline;
+	color: @color;
+	text-decoration: none;
 
-    &:hover { color: @hoverColor; }
+	&:hover { color: @hoverColor; }
 
-    .linkUnderline(@colorUnderline, @activeLinkColorUnderline);
-    .transition(@linkTransition);
+	.linkUnderline(@colorUnderline, @activeLinkColorUnderline);
+	.transition(@linkTransition);
 }
 
 .linkNoLine() {
-    .simpleLink();
-    border-bottom: 0;
+	.simpleLink();
+	border-bottom: 0;
 }
 
 .interactiveLink() {
-    .simpleLink();
-    border-bottom-style: dotted;
-    cursor: pointer;
+	.simpleLink();
+	border-bottom-style: dotted;
+	cursor: pointer;
 }
 
 /* === PATHS WRAPPERS === */
 
 .bgImg(@path) {
-    background-image: url('@{imgPrefix}@{path}?v=@{revision}');
+	background-image: url('@{imgPrefix}@{path}?v=@{revision}');
 }
 
 .bg(@path, @addit) {
-    background: url('@{imgPrefix}@{path}?v=@{revision}') @addit;
+	background: url('@{imgPrefix}@{path}?v=@{revision}') @addit;
 }
 
 /* IE8 FIXES {{{1 */
 
 .IE8doublePseudo() {
-    &:before { visibility: visible; }
-    &:after { visibility: hidden; }
-    &:hover, &.focus {
-        &:before { visibility: hidden; }
-        &:after { visibility: visible; }
-    }
+	&:before { visibility: visible; }
+	&:after { visibility: hidden; }
+	&:hover, &.focus {
+		&:before { visibility: hidden; }
+		&:after { visibility: visible; }
+	}
 }
 
 .IE8singlePseudo() {
-    &:before { visibility: hidden; }
-    &:hover:before { visibility: visible; }
+	&:before { visibility: hidden; }
+	&:hover:before { visibility: visible; }
 }
 
 /* IE8 FIXES }}}1 */
-
-// vim: set sw=4 ts=4 et foldmethod=marker ff=unix fenc=utf-8 :

@@ -2,15 +2,15 @@
  * Icons mixins
  *
  * @author Viacheslav Lotsmanov
+ * @license GNU/AGPLv3
+ * @see {@link https://github.com/unclechu/web-front-end-grunt-template/blob/master/LICENSE-AGPLv3|License}
  */
 
 .iconsSprite() {
-    display: inline-block;
-    overflow: hidden;
-    .bg('icons_sprite.png', no-repeat);
+	display: inline-block;
+	overflow: hidden;
+	.bg('icons_sprite.png', no-repeat);
 }
 
 .icon_tree() { .iconsSprite; .size(98px, 100px); background-position: -1px -1px; }
 .icon_tree_active() { .icon_tree; background-position: -100px -1px; }
-
-// vim: set sw=4 ts=4 et foldmethod=marker ff=unix fenc=utf-8 :

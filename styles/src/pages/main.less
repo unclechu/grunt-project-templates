@@ -2,46 +2,46 @@
  * Main page styles
  *
  * @author Viacheslav Lotsmanov
+ * @license GNU/AGPLv3
+ * @see {@link https://github.com/unclechu/web-front-end-grunt-template/blob/master/LICENSE-AGPLv3|License}
  */
 
 html.main_page .main_block {
-    display: block;
-    .relative;
-    min-width: @minWidth;
-    max-width: @maxWidth;
-    background: #eaeaea;
-    margin: 0 auto;
-    min-height: 100%;
-    .box-sizing(border-box);
-    padding: 20px;
+	display: block;
+	.relative;
+	min-width: @minWidth;
+	max-width: @maxWidth;
+	background: #eaeaea;
+	margin: 0 auto;
+	min-height: 100%;
+	.box-sizing(border-box);
+	padding: 20px;
 
-    .cookie_counter {
-        margin-top: 30px;
-        font-style: italic;
-    }
+	.cookie_counter {
+		margin-top: 30px;
+		font-style: italic;
+	}
 
-    h1 {
-        &:before, &:after {
-            @offset: 20px;
+	h1 {
+		&:before, &:after {
+			@offset: 20px;
 
-            .pseudoBlock;
-            .absolute(@offset, @offset);
-            .icon_tree;
-            .opacity(1);
-            .transition(opacity @animationSpeed linear);
-        }
+			.pseudoBlock;
+			.absolute(@offset, @offset);
+			.icon_tree;
+			.opacity(1);
+			.transition(opacity @animationSpeed linear);
+		}
 
-        &:after { .icon_tree_active; .pseudoBlock; .opacity(0); }
+		&:after { .icon_tree_active; .pseudoBlock; .opacity(0); }
 
-        &:hover {
-            &:before { .opacity(0); }
-            &:after { .opacity(1); }
-        }
-    }
+		&:hover {
+			&:before { .opacity(0); }
+			&:after { .opacity(1); }
+		}
+	}
 }
 
 html.ie8.main_page .main_block { // IE8 {{{1
-    h1 { .IE8doublePseudo; }
+	h1 { .IE8doublePseudo; }
 } // IE8 }}}1
-
-// vim: set sw=4 ts=4 et foldmethod=marker ff=unix fenc=utf-8 :
