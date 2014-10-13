@@ -10,6 +10,6 @@ insert_final_newline = true
 indent_style = space
 indent_size = 2
 
-[README.md]
+[*.md]
 indent_style = space
 indent_size = 2
