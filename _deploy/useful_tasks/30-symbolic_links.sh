@@ -6,7 +6,7 @@
 if [ -z "$PARENT_DEPLOY_SCRIPT" ]; then YOUR_SUBJECT="./_deploy/$(basename "$0")" WD="$(dirname "$0")/../" ../deploy.sh; exit "$?"; fi
 
 # Creating relative symbolic links to master site directory
-# Version: r2
+# Version: r3
 #
 # Put serapator "#SYMBOLIC_LINKS_START#" to ".gitignore"
 # Will be created symbolic links for all paths that after separator in .gitignore
