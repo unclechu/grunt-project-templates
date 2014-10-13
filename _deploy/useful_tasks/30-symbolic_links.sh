@@ -1,12 +1,12 @@
 #!/bin/bash
 #
 # Author: Viacheslav Lotsmanov
-# License: GNU/GPLv3 (https://github.com/unclechu/grunt-project-templates/blob/master/LICENSE)
+# License: GNU/GPLv3 (https://github.com/unclechu/web-front-end-grunt-template/blob/master/LICENSE)
 #
 if [ -z "$PARENT_DEPLOY_SCRIPT" ]; then YOUR_SUBJECT="./_deploy/$(basename "$0")" WD="$(dirname "$0")/../" ../deploy.sh; exit "$?"; fi
 
 # Creating relative symbolic links to master site directory
-# Version: r3
+# Version: r4
 #
 # Put serapator "#SYMBOLIC_LINKS_START#" to ".gitignore"
 # Will be created symbolic links for all paths that after separator in .gitignore

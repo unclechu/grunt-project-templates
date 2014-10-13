@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Author: Viacheslav Lotsmanov
-# License: GNU/GPLv3 (https://github.com/unclechu/grunt-project-templates/blob/master/LICENSE)
+# License: GNU/GPLv3 (https://github.com/unclechu/web-front-end-grunt-template/blob/master/LICENSE)
 #
 
 PARENT_DEPLOY_SCRIPT=1
