@@ -1,6 +1,6 @@
-/*!
- * Author: Viacheslav Lotsmanov
- * License: GNU/GPLv3 by Free Software Foundation (https://github.com/unclechu/grunt-project-templates/blob/master/LICENSE)
+/**
+ * @author Viacheslav Lotsmanov
+ * @license GNU/GPLv3 (https://github.com/unclechu/grunt-project-templates/blob/master/LICENSE)
  */
 
 module.exports = function (grunt) {
