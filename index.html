@@ -1,32 +1,33 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru" class="main_page">
 <head>
-    <meta charset="utf-8" />
-    <title>Page title</title>
-    <!--[if IE 8]>
-        <script>document.getElementsByTagName('html')[0].className += ' ie8';</script>
-    <![endif]-->
-    <link rel="stylesheet" type="text/css" href="./styles/build/build.css?v=1" />
-    <script src="./scripts/build/build.js?v=1"></script>
-    <script>
-        //<![CDATA[
-            require(['get_val'], function (getVal) {
+	<!-- License: none (public domain) -->
+	<meta charset="utf-8" />
+	<title>Page title</title>
+	<!--[if IE 8]>
+		<script>document.getElementsByTagName('html')[0].className += ' ie8';</script>
+	<![endif]-->
+	<link rel="stylesheet" type="text/css" href="./styles/build/build.css?v=1" />
+	<script src="./scripts/build/build.js?v=1"></script>
+	<script>
+		//<![CDATA[
+			require(['get_val'], function (getVal) {
 
-                getVal.set('lang', 'ru');
-                getVal.set('revision', '1');
+				getVal.set('lang', 'ru');
+				getVal.set('revision', '1');
 
-                require(['main']);
+				require(['main']);
 
-            });
-        //]]>
-    </script>
+			});
+		//]]>
+	</script>
 </head>
 
 <body>
-    <div class="main_block">
-        <h1>Header 1</h1>
-        <h2>Hedaer 2</h2>
-        <p>Page <a href="#">text</a></p>
-    </div>
+	<div class="main_block">
+		<h1>Header 1</h1>
+		<h2>Hedaer 2</h2>
+		<p>Page <a href="#">text</a></p>
+	</div>
 </body>
 </html>
