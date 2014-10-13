@@ -4,39 +4,39 @@
  * @module localization
  * @author Viacheslav Lotsmanov
  * @encoding utf-8
+ * @license GNU/AGPLv3
+ * @see {@link https://github.com/unclechu/web-front-end-grunt-template/blob/master/LICENSE-AGPLv3|License}
  */
 
 define(['get_val'],
 function (getVal) {
 
-    var locals = {
+	var locals = {
 
-        'en': {
+		'en': {
 
-            'PAGE_TITLE': 'Page title',
-            'HEADERS': {
-                'FIRST': 'Header 1',
-                'SECOND': 'Header 2'
-            }
+			'PAGE_TITLE': 'Page title',
+			'HEADERS': {
+				'FIRST': 'Header 1',
+				'SECOND': 'Header 2'
+			}
 
-        },
+		},
 
-        'ru': {
+		'ru': {
 
-            'PAGE_TITLE': 'Заголовок страницы',
-            'HEADERS': {
-                'FIRST': 'Заголовок 1',
-                'SECOND': 'Заголовок 2'
-            }
+			'PAGE_TITLE': 'Заголовок страницы',
+			'HEADERS': {
+				'FIRST': 'Заголовок 1',
+				'SECOND': 'Заголовок 2'
+			}
 
-        },
+		},
 
-        'defaultLocal': getVal('lang')
+		'defaultLocal': getVal('lang')
 
-    };
+	};
 
-    return locals;
+	return locals;
 
-}); // define
-
-// vim: set sw=4 ts=4 et foldmethod=marker fenc=utf-8 :
+}); // define()

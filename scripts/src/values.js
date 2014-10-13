@@ -3,25 +3,25 @@
  *
  * @module values
  * @author Viacheslav Lotsmanov
+ * @license GNU/AGPLv3
+ * @see {@link https://github.com/unclechu/web-front-end-grunt-template/blob/master/LICENSE-AGPLv3|License}
  */
 
 define(function () {
 
-    /** @public */ var exports = {};
+	/** @public */ var exports = {};
 
-    exports.values = {
-        animationSpeed: 200,
-        cookieExpires: 365
-    };
+	exports.values = {
+		animationSpeed: 200,
+		cookieExpires: 365
+	};
 
-    /** Required set before "getVal" */
-    exports.required = [
-        'lang',
-        'revision'
-    ];
+	/** Required set before "getVal" */
+	exports.required = [
+		'lang',
+		'revision'
+	];
 
-    return exports;
+	return exports;
 
-}); // define
-
-// vim: set sw=4 ts=4 et foldmethod=marker :
+}); // define()
