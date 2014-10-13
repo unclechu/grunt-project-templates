@@ -1,0 +1,3 @@
+[submodule "js-useful-umd-modules"]
+	path = js-useful-umd-modules
+	url = https://github.com/unclechu/js-useful-umd-modules
