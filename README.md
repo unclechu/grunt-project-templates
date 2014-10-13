@@ -186,4 +186,4 @@ Viacheslav Lotsmanov
 License
 =======
 
-[GNU/GPLv3 by Free Software Foundation](./LICENSE)
+[GNU/GPLv3](./LICENSE)
