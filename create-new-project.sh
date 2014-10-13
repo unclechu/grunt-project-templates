@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Author: Viacheslav Lotsmanov
-# License: GNU/GPLv3 by Free Software Foundation
+# License: GNU/GPLv3 (https://github.com/unclechu/grunt-project-templates/blob/master/LICENSE)
 #
 
 REPO_URL="https://github.com/unclechu/grunt-project-templates/"
