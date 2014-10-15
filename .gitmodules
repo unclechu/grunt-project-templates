@@ -1,3 +1,6 @@
 [submodule "js-useful-umd-modules"]
 	path = js-useful-umd-modules
 	url = https://github.com/unclechu/js-useful-umd-modules
+[submodule "web-front-end-deploy"]
+	path = web-front-end-deploy
+	url = https://github.com/unclechu/web-front-end-deploy
