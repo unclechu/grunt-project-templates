@@ -1,4 +1,5 @@
 /**
+ * @version r1
  * @author Viacheslav Lotsmanov
  * @license GNU/GPLv3 (https://github.com/unclechu/web-front-end-grunt-template/blob/master/LICENSE)
  */
